@@ -1,0 +1,9 @@
+[
+    {
+        "id": "llama-3.3-70b-versatile",
+        "created": 1733447754,
+        "label": "Llama 3.3",
+        "apiIdentifier": "llama-3.3-70b-versatile",
+        "description": "For general-purpose tasks"
+    }
+]
