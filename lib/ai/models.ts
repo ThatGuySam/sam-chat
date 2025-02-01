@@ -1,11 +1,23 @@
 // Define your models here.
 
-export interface Model {
-  id: string;
-  label: string;
-  apiIdentifier: string;
-  description: string;
-}
+import { z } from "zod";
+
+export const ModelSchema = z.object({
+  id: z.string()
+    .min(2)
+    .describe('The unique identifier for the model'),
+  label: z.string()
+    .min(2)
+    .describe('The human-readable label for the model'),
+  apiIdentifier: z.string()
+    .min(2)
+    .describe('The identifier for the model in the API'),
+  description: z.string()
+    .min(2)
+    .describe('A human-readable description of the model'),
+});
+
+export type Model = z.infer<typeof ModelSchema>;
 
 export const openaiModels = [
   {
