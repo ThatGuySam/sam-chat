@@ -44,6 +44,11 @@ const blocksTools: AllowedTools[] = [
 const weatherTools: AllowedTools[] = ['getWeather'];
 const allTools: AllowedTools[] = [...blocksTools, ...weatherTools];
 
+/**
+ * POST handler for the chat API.
+ * This endpoint handles incoming chat requests, generates responses
+ * via a streaming function, and performs related database actions.
+ */
 export async function POST(request: Request) {
   const {
     id,
@@ -136,6 +141,11 @@ export async function POST(request: Request) {
   });
 }
 
+/**
+ * DELETE handler for the chat API.
+ * This endpoint allows authenticated users to delete a chat
+ * if they own it.
+ */
 export async function DELETE(request: Request) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get('id');
