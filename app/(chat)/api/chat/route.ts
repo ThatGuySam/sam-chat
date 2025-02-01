@@ -6,7 +6,7 @@ import {
 } from 'ai';
 
 import { auth } from '@/app/(auth)/auth';
-import { customModel } from '@/lib/ai';
+import { openaiModel } from '@/lib/ai';
 import { models } from '@/lib/ai/models';
 import { systemPrompt } from '@/lib/ai/prompts';
 import {
@@ -84,7 +84,7 @@ export async function POST(request: Request) {
   return createDataStreamResponse({
     execute: (dataStream) => {
       const result = streamText({
-        model: customModel(model.apiIdentifier),
+        model: openaiModel(model.apiIdentifier),
         system: systemPrompt,
         messages,
         maxSteps: 5,

@@ -10,7 +10,7 @@ import { Model } from '../models';
 import { Session } from 'next-auth';
 import { z } from 'zod';
 import { getDocumentById, saveDocument } from '@/lib/db/queries';
-import { customModel, imageGenerationModel } from '..';
+import { openaiModel, imageGenerationModel } from '..';
 import { updateDocumentPrompt } from '../prompts';
 
 interface UpdateDocumentProps {
@@ -51,7 +51,7 @@ export const updateDocument = ({
 
       if (document.kind === 'text') {
         const { fullStream } = streamText({
-          model: customModel(model.apiIdentifier),
+          model: openaiModel(model.apiIdentifier),
           system: updateDocumentPrompt(currentContent, 'text'),
           experimental_transform: smoothStream({ chunking: 'word' }),
           prompt: description,
@@ -82,7 +82,7 @@ export const updateDocument = ({
         dataStream.writeData({ type: 'finish', content: '' });
       } else if (document.kind === 'code') {
         const { fullStream } = streamObject({
-          model: customModel(model.apiIdentifier),
+          model: openaiModel(model.apiIdentifier),
           system: updateDocumentPrompt(currentContent, 'code'),
           prompt: description,
           schema: z.object({

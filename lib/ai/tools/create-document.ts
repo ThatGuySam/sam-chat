@@ -8,7 +8,7 @@ import {
   tool,
 } from 'ai';
 import { z } from 'zod';
-import { customModel, imageGenerationModel } from '..';
+import { openaiModel, imageGenerationModel } from '..';
 import { codePrompt } from '../prompts';
 import { saveDocument } from '@/lib/db/queries';
 import { Session } from 'next-auth';
@@ -58,7 +58,7 @@ export const createDocument = ({
 
       if (kind === 'text') {
         const { fullStream } = streamText({
-          model: customModel(model.apiIdentifier),
+          model: openaiModel(model.apiIdentifier),
           system:
             'Write about the given topic. Markdown is supported. Use headings wherever appropriate.',
           experimental_transform: smoothStream({ chunking: 'word' }),
@@ -82,7 +82,7 @@ export const createDocument = ({
         dataStream.writeData({ type: 'finish', content: '' });
       } else if (kind === 'code') {
         const { fullStream } = streamObject({
-          model: customModel(model.apiIdentifier),
+          model: openaiModel(model.apiIdentifier),
           system: codePrompt,
           prompt: title,
           schema: z.object({
