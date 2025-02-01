@@ -63,12 +63,10 @@ export async function POST(request: Request) {
     id,
     messages,
     modelId,
-    groqVariant,
   }: {
     id: string;
     messages: Array<Message>;
     modelId: string;
-    groqVariant?: string;
   } = await request.json();
 
   // Validate user authentication.
@@ -109,13 +107,9 @@ export async function POST(request: Request) {
   // Choose the correct model instance based on the provider.
   let modelInstance: LanguageModelV1 | undefined;
   if ( isGroqModel(model) ) {
-    // For Groq, require a variant to support multiple open source models.
-    if (!groqVariant) {
-      return new Response('Groq model variant missing', { status: 400 });
-    }
     try {
       // Create a Groq model instance from the helper.
-      modelInstance = groqModel(groqVariant);
+      modelInstance = groqModel( model.apiIdentifier );
     } catch (error) {
       return new Response(
         'Unsupported Groq model variant',
