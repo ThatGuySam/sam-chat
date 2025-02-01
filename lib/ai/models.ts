@@ -7,7 +7,7 @@ export interface Model {
   description: string;
 }
 
-export const models: Array<Model> = [
+export const openaiModels = [
   {
     id: 'gpt-4o-mini',
     label: 'GPT 4o mini',
@@ -19,7 +19,28 @@ export const models: Array<Model> = [
     label: 'GPT 4o',
     apiIdentifier: 'gpt-4o',
     description: 'For complex, multi-step tasks',
+  }
+] as const satisfies Array<Model>;
+
+export const groqModels = [
+  {
+    id: 'deepseek-r1-distill-llama-70b',
+    label: 'DeepSeek R1',
+    apiIdentifier: 'deepseek-r1-distill-llama-70b',
+    description: 'For complex, multi-step tasks',
   },
-] as const;
+  {
+    id: 'llama-3.3-70b-versatile',
+    label: 'Llama 3.3',
+    apiIdentifier: 'llama-3.3-70b-versatile',
+    description: 'For general-purpose tasks',
+  },
+] as const satisfies Array<Model>;
+
+export function isGroqModel(model: Model): model is typeof groqModels[number] {
+  return groqModels.some((m) => m.id === model.id);
+}
+
+export const models = [...openaiModels, ...groqModels] as const satisfies Array<Model>;
 
 export const DEFAULT_MODEL_NAME: string = 'gpt-4o-mini';
