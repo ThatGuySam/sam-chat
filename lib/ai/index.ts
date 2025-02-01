@@ -3,6 +3,7 @@ import { experimental_wrapLanguageModel as wrapLanguageModel } from 'ai';
 import { groq } from '@ai-sdk/groq';
 
 import { customMiddleware } from './custom-middleware';
+import { GroqIdentifier } from './models';
 
 
 export const openaiModel = (apiIdentifier: string) => {
@@ -12,7 +13,7 @@ export const openaiModel = (apiIdentifier: string) => {
   });
 };
 
-export const groqModel = (apiIdentifier: string) => {
+export const groqModel = (apiIdentifier: GroqIdentifier) => {
   return wrapLanguageModel({
     model: groq(apiIdentifier),
     middleware: customMiddleware,

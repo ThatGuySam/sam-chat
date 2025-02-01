@@ -37,6 +37,8 @@ export const groqModels = [
   },
 ] as const satisfies Array<Model>;
 
+export type GroqIdentifier = typeof groqModels[number]['apiIdentifier'];
+
 export function isGroqModel(model: Model): model is typeof groqModels[number] {
   return groqModels.some((m) => m.id === model.id);
 }
