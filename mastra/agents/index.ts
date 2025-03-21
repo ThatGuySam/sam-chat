@@ -2,12 +2,13 @@ import { Agent } from '@mastra/core/agent';
 import { Memory } from '@mastra/memory';
 import { PostgresStore } from '@mastra/pg';
 import { openai } from '@ai-sdk/openai';
-import { systemPrompt } from '@/ai/prompts';
+
+import { systemPrompt } from '@/lib/ai/prompts';
 import {
   getCryptoPrice,
   getHistoricalCryptoPrices,
   searchCryptoCoins,
-} from '../tools';
+} from '@/mastra/tools';
 
 const connectionString = process.env.POSTGRES_URL!;
 

@@ -1,3 +1,4 @@
+import process from 'node:process';
 import { Mastra } from '@mastra/core';
 import { createLogger } from '@mastra/core/logger';
 import { VercelDeployer } from '@mastra/deployer-vercel';
